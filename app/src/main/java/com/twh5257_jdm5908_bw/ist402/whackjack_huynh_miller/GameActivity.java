@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private OfficialTimer OfficTimer;
     private GameSettingTimer PositionTimer;
     private int WhereJohnnyAt, counter, score;
+    private final int SCORE_LIMIT = 20;
     private long _secondsLeft;
     private boolean isPause;
     private ArrayList<HighScore> highScores;
@@ -383,7 +384,7 @@ public class GameActivity extends AppCompatActivity {
         highScores = new ArrayList<>();
         readHighScores();
 
-        if (highScores.size() < 5){
+        if (highScores.size() < SCORE_LIMIT){
             Intent intent = new Intent(this, InitialsActivity.class);
             startActivityForResult(intent, 1);
         }
@@ -415,7 +416,7 @@ public class GameActivity extends AppCompatActivity {
     private void updateHighScores(){
 
         // Add, sort and print
-        if (highScores.size() < 5)
+        if (highScores.size() < SCORE_LIMIT)
         {
             highScores.add(new HighScore(initials, score));
             try {
