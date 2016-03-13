@@ -17,7 +17,7 @@
         android:id="@+id/easyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Easy"
+        android:text="@string/easy_button"
         android:onClick="displayEasy"/>
     <Button
         android:id="@+id/medButton"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:text="Medium"
+        android:text="@string/medium_button"
         android:onClick="displayMed"/>
     <Button
         android:id="@+id/hardButton"

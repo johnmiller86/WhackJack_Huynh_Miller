@@ -9,7 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class NameActivity extends AppCompatActivity {
+/**
+ * Activity for viewing high scores.
+ *
+ * @author John D. Miller
+ * @version 1.0.1
+ * @since 03/11/2016
+ */
+public class InitialsActivity extends AppCompatActivity {
 
     private EditText initialsET;
     private Button okButton;
@@ -18,7 +25,7 @@ public class NameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_name);
+        setContentView(R.layout.activity_initials);
 
         initialsET = (EditText) findViewById(R.id.initialsEditText);
         okButton = (Button) findViewById(R.id.okButton);
@@ -27,7 +34,7 @@ public class NameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 initials = initialsET.getText().toString();
                 if(initials == null || initials.equals("")){
-                    Toast.makeText(NameActivity.this, "You must input your initials!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InitialsActivity.this, "You must input your initials!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Intent intent = new Intent();
@@ -37,5 +44,11 @@ public class NameActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // Do nothing disable back button until input gathered.
     }
 }

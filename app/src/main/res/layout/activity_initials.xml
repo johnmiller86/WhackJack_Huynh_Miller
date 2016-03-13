@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout resource for initials activity -->
+<!-- John D. Miller 03/11/2016 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.twh5257_jdm5908_bw.ist402.whackjack_huynh_miller.NameActivity"
+    tools:context=".InitialsActivity"
     android:background="#000000">
 
     <TextView
@@ -28,6 +30,7 @@
         android:layout_alignStart="@+id/initialsTextView"
         android:layout_alignEnd="@+id/initialsTextView"
         android:inputType="textCapCharacters"
+        android:singleLine="true"
         android:maxLength="3"
         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:textSize="24sp"

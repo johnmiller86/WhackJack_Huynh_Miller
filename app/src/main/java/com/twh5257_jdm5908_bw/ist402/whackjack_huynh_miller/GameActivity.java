@@ -22,7 +22,11 @@ import java.util.Scanner;
 
 
 /**
- * Created by Tisa on 3/6/2016.
+ * Activity for viewing high scores.
+ *
+ * @author Tisa Huynh && John D. Miller
+ * @version 1.0.1
+ * @since 03/11/2016
  */
 public class GameActivity extends AppCompatActivity {
 
@@ -381,13 +385,13 @@ public class GameActivity extends AppCompatActivity {
         readHighScores();
 
         if (highScores.size() < 20){
-            Intent intent = new Intent(this, NameActivity.class);
+            Intent intent = new Intent(this, InitialsActivity.class);
             startActivityForResult(intent, 1);
         }
         else{
             for (int i = 0; i < highScores.size(); i++) {
                 if (score > highScores.get(i).getScore()) {
-                    Intent intent = new Intent(this, NameActivity.class);
+                    Intent intent = new Intent(this, InitialsActivity.class);
                     startActivityForResult(intent, 1);
                 }
             }
@@ -400,6 +404,7 @@ public class GameActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK){
                 initials = data.getStringExtra("initials");
                 updateHighScores();
+                finish();
             }
         }
     }
