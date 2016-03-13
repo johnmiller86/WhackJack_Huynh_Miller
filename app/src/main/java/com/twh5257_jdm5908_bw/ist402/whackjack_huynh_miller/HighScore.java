@@ -68,6 +68,6 @@ public class HighScore implements Comparable<HighScore>{
      */
     @Override
     public String toString(){
-        return name + "\t" + score + " points";
+        return String.format("%-3s%12s", name, score + " points");
     }
 }
