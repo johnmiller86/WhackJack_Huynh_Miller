@@ -53,8 +53,7 @@ public class GameActivity extends AppCompatActivity {
 
         if(b!=null)
         {
-            String j = b.getString("EXTRA_MESSAGE");
-            difficultyChosen =j;
+            difficultyChosen = b.getString("EXTRA_MESSAGE");
         }
 
 
@@ -81,28 +80,26 @@ public class GameActivity extends AppCompatActivity {
 
 
         //sets game based on difficulty user chose/new instances of counterdowntimer thing
-        if(difficultyChosen.equals("Easy")){
-            PositionTimer= new GameSettingTimer(30000, 1000);
-            PositionTimer.start();
-        }
-        else if (difficultyChosen.equals("Medium")){
-            PositionTimer= new GameSettingTimer(30000, 750);
-            PositionTimer.start();
-        }
-        else if (difficultyChosen.equals("Hard")){
-            PositionTimer= new GameSettingTimer(30000, 500);
-            PositionTimer.start();
+        switch (difficultyChosen) {
+            case "Easy":
+                PositionTimer = new GameSettingTimer(30000, 1000);
+                PositionTimer.start();
+                break;
+            case "Medium":
+                PositionTimer = new GameSettingTimer(30000, 750);
+                PositionTimer.start();
+                break;
+            case "Hard":
+                PositionTimer = new GameSettingTimer(30000, 500);
+                PositionTimer.start();
+                break;
         }
 
         //if pause button was hit, pauses all timers and brings up menu to quit
         pauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isPause){
-                    isPause= false;
-                } else {
-                    isPause = true;
-                }
+                isPause = !isPause;
                 if (isPause) {
                     OfficTimer.cancel();
                     PositionTimer.cancel();
@@ -111,17 +108,19 @@ public class GameActivity extends AppCompatActivity {
                     EnableHoles ();
                     OfficTimer = new OfficialTimer(_secondsLeft, 1000);
                     OfficTimer.start();
-                    if(difficultyChosen.equals("Easy")){
-                        PositionTimer= new GameSettingTimer(_secondsLeft, 1000);
-                        PositionTimer.start();
-                    }
-                    else if (difficultyChosen.equals("Medium")){
-                        PositionTimer= new GameSettingTimer(_secondsLeft, 750);
-                        PositionTimer.start();
-                    }
-                    else if (difficultyChosen.equals("Hard")){
-                        PositionTimer= new GameSettingTimer(_secondsLeft, 500);
-                        PositionTimer.start();
+                    switch (difficultyChosen) {
+                        case "Easy":
+                            PositionTimer = new GameSettingTimer(_secondsLeft, 1000);
+                            PositionTimer.start();
+                            break;
+                        case "Medium":
+                            PositionTimer = new GameSettingTimer(_secondsLeft, 750);
+                            PositionTimer.start();
+                            break;
+                        case "Hard":
+                            PositionTimer = new GameSettingTimer(_secondsLeft, 500);
+                            PositionTimer.start();
+                            break;
                     }
                 }
             }
@@ -384,7 +383,7 @@ public class GameActivity extends AppCompatActivity {
         highScores = new ArrayList<>();
         readHighScores();
 
-        if (highScores.size() < 20){
+        if (highScores.size() < 5){
             Intent intent = new Intent(this, InitialsActivity.class);
             startActivityForResult(intent, 1);
         }
@@ -393,6 +392,7 @@ public class GameActivity extends AppCompatActivity {
                 if (score > highScores.get(i).getScore()) {
                     Intent intent = new Intent(this, InitialsActivity.class);
                     startActivityForResult(intent, 1);
+                    break;
                 }
             }
         }
@@ -415,7 +415,7 @@ public class GameActivity extends AppCompatActivity {
     private void updateHighScores(){
 
         // Add, sort and print
-        if (highScores.size() < 20)
+        if (highScores.size() < 5)
         {
             highScores.add(new HighScore(initials, score));
             try {
