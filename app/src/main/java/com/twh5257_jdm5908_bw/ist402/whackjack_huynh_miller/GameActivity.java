@@ -76,13 +76,13 @@ public class GameActivity extends AppCompatActivity {
 
 
         //official timer displayed
-        OfficTimer = new OfficialTimer(1000, 1000);
+        OfficTimer = new OfficialTimer(30000, 1000);
         OfficTimer.start();
 
 
         //sets game based on difficulty user chose/new instances of counterdowntimer thing
         if(difficultyChosen.equals("Easy")){
-            PositionTimer= new GameSettingTimer(1000, 1000);
+            PositionTimer= new GameSettingTimer(30000, 1000);
             PositionTimer.start();
         }
         else if (difficultyChosen.equals("Medium")){
