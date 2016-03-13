@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Whack</string>
+    <string name="app_name">Whack Jack</string>
     <string name="emptyhole"> </string>
     <string name="scoreTitle">Score</string>
     <string name="scorePoints">0</string>

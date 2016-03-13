@@ -11,34 +11,36 @@
     android:background="#000000">
 
     <TextView
+        android:id="@+id/initialsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_initials_label"
-        android:id="@+id/initialsTextView"
-        android:textColor="#ff0000"
-        android:textSize="36sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/enter_initials_label"
+        android:textSize="36sp"
+        android:textColor="#ff0000"/>
 
     <EditText
+        android:id="@+id/initialsEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:id="@+id/initialsEditText"
-        android:background="#ffffff"
-        android:inputType="textCapCharacters"
-        android:textSize="24sp"
-        android:textColor="#ff0000"
         android:layout_alignStart="@+id/initialsTextView"
-        android:layout_alignEnd="@+id/initialsTextView" />
+        android:layout_alignEnd="@+id/initialsTextView"
+        android:inputType="textCapCharacters"
+        android:maxLength="3"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:textSize="24sp"
+        android:background="#ffffff"
+        android:textColor="#ff0000"/>
 
 
 
     <Button
+        android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ok_button"
-        android:id="@+id/okButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/ok_button"/>
 </RelativeLayout>

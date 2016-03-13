@@ -1,5 +1,6 @@
 package com.twh5257_jdm5908_bw.ist402.whackjack_huynh_miller;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,28 +26,17 @@ import java.util.Scanner;
  */
 public class GameActivity extends AppCompatActivity {
 
-    private TextView countdownText;
-    private TextView scoreText;
-    private Button hole1;
-    private Button hole2;
-    private Button hole3;
-    private Button hole4;
-    private Button hole5;
-    private Button hole6;
-    private Button hole7;
-    private Button hole8;
-    private  Button hole9;
+    private TextView countdownText, scoreText;
+    private Button hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9;
     private ImageButton pauseBtn;
     private GameService gs;
-    private String difficultyChosen;
+    private String difficultyChosen, initials;
     private OfficialTimer OfficTimer;
     private GameSettingTimer PositionTimer;
-    private int WhereJohnnyAt;
-    private int counter;
+    private int WhereJohnnyAt, counter, score;
     private long _secondsLeft;
     private boolean isPause;
     private ArrayList<HighScore> highScores;
-    private String initials;
 
 
     @Override
@@ -317,7 +306,8 @@ public class GameActivity extends AppCompatActivity {
         public void onFinish()
         {
             countdownText.setText("Game Over");
-            updateHighScores();
+            score = Integer.parseInt(scoreText.getText().toString());
+            checkForHighScore();
         }
 
         @Override
@@ -383,26 +373,45 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * Checks if high score and gets initials.
+     */
+    private void checkForHighScore(){
+
+        highScores = new ArrayList<>();
+        readHighScores();
+
+        if (highScores.size() < 20){
+            Intent intent = new Intent(this, NameActivity.class);
+            startActivityForResult(intent, 1);
+        }
+        else{
+            for (int i = 0; i < highScores.size(); i++) {
+                if (score > highScores.get(i).getScore()) {
+                    Intent intent = new Intent(this, NameActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK){
+                initials = data.getStringExtra("initials");
+                updateHighScores();
+            }
+        }
+    }
+
+    /**
      * Updates high scores files.
      */
     private void updateHighScores(){
 
-        int score = Integer.parseInt(scoreText.getText().toString());
-        highScores = new ArrayList<>();
-        readHighScores();
-
-        if (highScores.size() == 0 || score > highScores.get(0).getScore()){
-            Toast.makeText(GameActivity.this, "New High Score!!", Toast.LENGTH_SHORT).show();
-        }
-
         // Add, sort and print
         if (highScores.size() < 20)
         {
-            Toast.makeText(GameActivity.this, "You made the top 20!!", Toast.LENGTH_SHORT).show();
-            //askForInitials();
-            Intent intent = new Intent(this, NameActivity.class);
-            startActivityForResult(intent, 1);
-            initials = intent.getStringExtra("initials");
             highScores.add(new HighScore(initials, score));
             try {
                 File file = new File(getFilesDir(), "HighScores" + difficultyChosen + ".txt");
@@ -423,11 +432,6 @@ public class GameActivity extends AppCompatActivity {
             // Comparing
             for (int i = 0; i < highScores.size(); i++) {
                 if (score > highScores.get(i).getScore()) {
-                    Toast.makeText(GameActivity.this, "You made the top 20!!", Toast.LENGTH_SHORT).show();
-                    //askForInitials();
-                    Intent intent = new Intent(this, NameActivity.class);
-                    startActivityForResult(intent, 1);
-                    initials = intent.getStringExtra("initials");
                     HighScore hs = new HighScore(initials, score);
                     for (int j = highScores.size() - 1; j >  i; j--){
                         highScores.set(j, highScores.get(j - 1));
@@ -440,7 +444,6 @@ public class GameActivity extends AppCompatActivity {
             try {
                 File file = new File(getFilesDir(), "HighScores" + difficultyChosen + ".txt");
                 PrintWriter output = new PrintWriter(new FileOutputStream(file, false));
-                //Collections.sort(highScores);
                 for (HighScore hs : highScores){
                     output.println(hs.toString());
                 }
@@ -451,29 +454,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
-
-//    /**
-//     * Gets user's initials with AlertDialog.
-//     */
-//    private void askForInitials(){
-//
-//        // Configuring EditText
-//        final EditText initialsET = new EditText(GameActivity.this);
-//        initialsET.setInputType(InputType.TYPE_CLASS_TEXT);
-//        initialsET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(3)});
-//
-//        // Configuring the AlertDialog
-//        new AlertDialog.Builder(GameActivity.this)
-//                .setTitle("You made the list!!")
-//                .setMessage("Enter your initials")
-//                .setView(initialsET)
-//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        initials = initialsET.getText().toString();
-//                    }
-//                }).show();
-//    }
 
     /**
      * Reads a high scores file.
