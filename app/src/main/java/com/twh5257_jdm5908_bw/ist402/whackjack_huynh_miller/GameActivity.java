@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -331,7 +330,7 @@ public class GameActivity extends AppCompatActivity {
         public void onTick(long millisUntilFinished)
         {
             _secondsLeft = millisUntilFinished;
-            Log.v("TICK", _secondsLeft + "");
+            //Log.v("TICK", _secondsLeft + "");
             Long time = millisUntilFinished/1000;
             countdownText.setText(time.toString());
         }
