@@ -2,7 +2,9 @@ package com.twh5257_jdm5908_bw.ist402.whackjack_huynh_miller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -38,12 +40,14 @@ public class GameActivity extends AppCompatActivity {
     private String difficultyChosen, initials;
     private OfficialTimer OfficTimer;
     private GameSettingTimer PositionTimer;
-    private int WhereJohnnyAt, counter, score;
+    private int WhereJohnnyAt, counter, score, soundId, priority, loop;
     private final int SCORE_LIMIT = 20;
+    private float leftVolume, rightVolume, rate;
     private long _secondsLeft;
     private boolean isPause;
     private ArrayList<HighScore> highScores;
     private MediaPlayer mp;
+    private SoundPool sp;
 
 
     @Override
@@ -75,13 +79,25 @@ public class GameActivity extends AppCompatActivity {
         pauseBtn =(ImageButton) findViewById(R.id.imageButton);
         scoreText=(TextView)findViewById(R.id.scoretext);
         countdownText =(TextView)findViewById(R.id.timertext);
-        mp = MediaPlayer.create(this, R.raw.ow);
+        //sp = MediaPlayer.create(this, R.raw.ow);
 
+        // SoundPool stuff
+        sp = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        soundId = sp.load(this, R.raw.heresjohnny, 1);
+        leftVolume = 1;
+        rightVolume = 1;
+        priority = 1;
+        loop = 0;
+        rate = 1.0f;
+
+        // MediaPlayer stuff
+        mp = MediaPlayer.create(this, R.raw.libertycityloop);
+        mp.setLooping(true);
 
         //official timer displayed
         OfficTimer = new OfficialTimer(30000, 1000);
         OfficTimer.start();
-
+        mp.start();
 
         //sets game based on difficulty user chose/new instances of counterdowntimer thing
         switch (difficultyChosen) {
@@ -165,7 +181,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 1) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -180,7 +196,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 2) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -195,7 +211,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 3) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -210,7 +226,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 4) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -225,7 +241,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 5) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -240,7 +256,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 6) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -255,7 +271,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 7) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -270,7 +286,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 8) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -285,7 +301,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 9) {
                     counter++;
-                    mp.start();
+                    sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
                         counter--;
@@ -323,6 +339,7 @@ public class GameActivity extends AppCompatActivity {
         {
             countdownText.setText("Game Over");
             score = Integer.parseInt(scoreText.getText().toString());
+            mp.stop();
             checkForHighScore();
         }
 
@@ -502,6 +519,7 @@ public class GameActivity extends AppCompatActivity {
         // Disable timers game was left
         OfficTimer.cancel();
         PositionTimer.cancel();
+        mp.stop();
         finish();
     }
 }
