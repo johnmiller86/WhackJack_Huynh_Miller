@@ -124,14 +124,17 @@ public class GameActivity extends AppCompatActivity {
                     OfficTimer.cancel();
                     PositionTimer.cancel();
                     DisableHoles();
+                    mp.pause();
                 } else {
                     EnableHoles ();
                     OfficTimer = new OfficialTimer(_secondsLeft, 1000);
                     OfficTimer.start();
+                    mp.start();
                     switch (difficultyChosen) {
                         case "Easy":
                             PositionTimer = new GameSettingTimer(_secondsLeft, 1000);
                             PositionTimer.start();
+                            DisableHoles();
                             break;
                         case "Medium":
                             PositionTimer = new GameSettingTimer(_secondsLeft, 750);
@@ -181,6 +184,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 1) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -196,6 +200,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 2) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -211,6 +216,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 3) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -226,6 +232,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 4) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -241,6 +248,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 5) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -256,6 +264,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 6) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -270,7 +279,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (WhereJohnnyAt == 7) {
-                    counter++;
+                    counter++;v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -286,6 +295,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 8) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -301,6 +311,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (WhereJohnnyAt == 9) {
                     counter++;
+                    v.setEnabled(false);
                     sp.play(soundId, leftVolume, rightVolume, priority, loop, rate);
                 } else {
                     if (difficultyChosen.equals("Hard")) {
@@ -375,30 +386,39 @@ public class GameActivity extends AppCompatActivity {
             switch (theJackPosition) {
                 case 1:
                     hole1.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole1.setEnabled(true);
                     break;
                 case 2:
                     hole2.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole2.setEnabled(true);
                     break;
                 case 3:
                     hole3.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole3.setEnabled(true);
                     break;
                 case 4:
                     hole4.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole4.setEnabled(true);
                     break;
                 case 5:
                     hole5.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole5.setEnabled(true);
                     break;
                 case 6:
                     hole6.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole6.setEnabled(true);
                     break;
                 case 7:
                     hole7.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole7.setEnabled(true);
                     break;
                 case 8:
                     hole8.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole8.setEnabled(true);
                     break;
                 case 9:
                     hole9.setBackgroundResource(R.drawable.crack_johnny_pos);
+                    hole9.setEnabled(true);
                     break;
                 default:
                     break;
